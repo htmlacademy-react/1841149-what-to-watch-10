@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import AddIcon from '../../components/add-icon/add-icon';
 import FilmCard from '../../components/film-card/film-card';
 import Header from '../../components/header/header';
