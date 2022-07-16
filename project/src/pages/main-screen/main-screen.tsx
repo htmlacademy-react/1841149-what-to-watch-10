@@ -1,19 +1,31 @@
-import AddIcon from '../../components/add-icon/add-icon';
-import FilmCard from '../../components/film-card/film-card';
-import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import FilmsList from '../../components/films-list/films-list';
+import Footer from '../../components/footer/footer';
+import { Film } from '../../types/films';
+import { useNavigate } from 'react-router-dom';
 
 type mainScreenProps = {
   title: string,
   genre: string,
-  year: number
+  year: number,
+  films: Film[],
 };
 
-function MainScreen({title, genre, year}: mainScreenProps): JSX.Element {
+function MainScreen({title, genre, year, films}: mainScreenProps): JSX.Element {
+  const navigate = useNavigate();
+
+  const myListButtonClickHandler = () => {
+    const path = '/mylist';
+    navigate(path);
+  };
+
+  const playButtonClickHandler = () => {
+    const path = '/player/:1';
+    navigate(path);
+  };
+
   return (
     <>
-      <AddIcon />
-
       <section className="film-card">
         <div className="film-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
@@ -37,18 +49,18 @@ function MainScreen({title, genre, year}: mainScreenProps): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <button className="btn btn--play film-card__button" type="button" onClick={() => playButtonClickHandler()}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
+                <button className="btn btn--list film-card__button" type="button" onClick={() => myListButtonClickHandler()} >
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">9</span>
+                  <span className="film-card__count">{films.length}</span>
                 </button>
               </div>
             </div>
@@ -93,28 +105,7 @@ function MainScreen({title, genre, year}: mainScreenProps): JSX.Element {
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-          </div>
+          <FilmsList films={films}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
