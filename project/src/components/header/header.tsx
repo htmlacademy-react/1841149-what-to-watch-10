@@ -18,7 +18,7 @@ function Header({isLogined}: HeaderProps): JSX.Element {
             </div>
           </li>
           <li className="user-block__item">
-            <a className="user-block__link">Sign out</a>
+            <Link to="#" className="user-block__link">Sign out</Link>
           </li>
         </ul> :
         <div className="user-block">

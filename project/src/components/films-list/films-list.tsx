@@ -12,7 +12,6 @@ function FilmsList({films}: FilmListProps): JSX.Element {
   const setActive = (id: number) => {
     const activeFilm = films.filter((film) => film.id === id);
     setActiveCard(activeFilm);
-    console.log(selectedFilm);
   };
 
   const filmsList =

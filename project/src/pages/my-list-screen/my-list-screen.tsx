@@ -14,7 +14,6 @@ function MyListScreen({films, isLoggined}: MyListScreenProps): JSX.Element {
 
   const setActive = (id: number) => {
     setActiveCard(id);
-    console.log(count);
   };
 
   const filmsList =
