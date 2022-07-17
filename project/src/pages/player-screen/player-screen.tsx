@@ -8,10 +8,10 @@ type PlayerScreenProps = {
 function PlayerScreen({ films }: PlayerScreenProps): JSX.Element {
   const navigate = useNavigate();
   const params = useParams();
-  const film = films.find((filmA) => String(filmA.id).includes(params.id ? params.id.slice(1) : '0')) as Film;
+  const film = films.find((filmA) => String(filmA.id) === params.id) as Film;
 
   const onExitButtonClickHandler = () => {
-    const path = `/films/:${film.id}`;
+    const path = `/films/${film.id}`;
     navigate(path);
   };
 
