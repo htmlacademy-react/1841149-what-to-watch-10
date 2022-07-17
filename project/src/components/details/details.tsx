@@ -8,6 +8,20 @@ type DetailsProps = {
 function Details({films}: DetailsProps): JSX.Element {
   const params = useParams();
   const film = films.find((filmA) => String(filmA.id) === params.id) as Film;
+
+  const actorsList = film.starring[0].split(',').map((star) => `${star}`, '');
+
+  const huminazeFilmDuration = (minutes: number) => {
+    const MINUTES_IN_HOUR = 60;
+    const hours = minutes / MINUTES_IN_HOUR;
+    if (hours < 1) {
+      return `${minutes}m`;
+    } else if ((minutes % MINUTES_IN_HOUR) === 0) {
+      return `${hours.toFixed(0)}h`;
+    }
+    return `${hours.toFixed(0)}h ${minutes % MINUTES_IN_HOUR}m` ;
+  };
+
   return (
     <>
       <nav className="film-nav film-card__nav">
@@ -27,23 +41,12 @@ function Details({films}: DetailsProps): JSX.Element {
         <div className="film-card__text-col">
           <p className="film-card__details-item">
             <strong className="film-card__details-name">Director</strong>
-            <span className="film-card__details-value">Wes Anderson</span>
+            <span className="film-card__details-value">{film.director}</span>
           </p>
           <p className="film-card__details-item">
             <strong className="film-card__details-name">Starring</strong>
             <span className="film-card__details-value" >
-              Bill Murray, <br />
-              Edward Norton, <br />
-              Jude Law, <br />
-              Willem Dafoe, <br />
-              Saoirse Ronan, <br />
-              Tony Revoloru, <br />
-              Tilda Swinton, <br />
-              Tom Wilkinson, <br />
-              Owen Wilkinson, <br />
-              Adrien Brody, <br />
-              Ralph Fiennes, <br />
-              Jeff Goldblum
+              {actorsList}
             </span>
           </p>
         </div>
@@ -51,7 +54,7 @@ function Details({films}: DetailsProps): JSX.Element {
         <div className="film-card__text-col">
           <p className="film-card__details-item">
             <strong className="film-card__details-name">Run Time</strong>
-            <span className="film-card__details-value">{film.runTime}</span>
+            <span className="film-card__details-value">{huminazeFilmDuration(film.runTime)}</span>
           </p>
           <p className="film-card__details-item">
             <strong className="film-card__details-name">Genre</strong>
