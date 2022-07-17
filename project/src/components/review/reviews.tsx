@@ -13,13 +13,13 @@ function Reviews({films}: ReviewProps): JSX.Element {
     <>
       <nav className="film-nav film-card__nav">
         <ul className="film-nav__list">
-          <li className="film-nav__item film-nav__item--active">
+          <li className="film-nav__item">
             <Link to={`/films/${film.id}`} className="film-nav__link">Overview</Link>
           </li>
           <li className="film-nav__item">
             <Link to={`/films/${film.id}/details`} className="film-nav__link">Details</Link>
           </li>
-          <li className="film-nav__item">
+          <li className="film-nav__item film-nav__item--active">
             <Link to='#' className="film-nav__link">Reviews</Link>
           </li>
         </ul>
