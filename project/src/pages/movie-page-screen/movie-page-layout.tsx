@@ -1,19 +1,20 @@
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate, Outlet } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import { Film } from '../../types/films';
 
-type MoviePageInListScreenProps = {
+type MoviePageLayoutProps = {
   films: Film[];
+  isLogined: boolean;
 }
 
-function MoviePageInListScreen({ films }: MoviePageInListScreenProps): JSX.Element {
+function MoviePageLayout({ films, isLogined }: MoviePageLayoutProps): JSX.Element {
   const navigate = useNavigate();
   const params = useParams();
-  const film = films.find((filmA) => String(filmA.id).includes(params.id ? params.id.slice(1) : '0')) as Film;
+  const film = films.find((filmA) => String(filmA.id) === params.id) as Film;
 
   const onPlayButtonClickHandler = () => {
-    const path = `/player/:${film.id}`;
+    const path = `/player/${film.id}`;
     navigate(path);
   };
 
@@ -31,7 +32,7 @@ function MoviePageInListScreen({ films }: MoviePageInListScreenProps): JSX.Eleme
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
-          <Header />
+          <Header isLogined={isLogined}/>
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
@@ -55,7 +56,7 @@ function MoviePageInListScreen({ films }: MoviePageInListScreenProps): JSX.Eleme
                   <span>My list</span>
                   <span className="film-card__count">{films.length}</span>
                 </button>
-                <Link to={`/films/:${film.id}/review`} className="btn film-card__button">Add review</Link>
+                <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -68,37 +69,7 @@ function MoviePageInListScreen({ films }: MoviePageInListScreenProps): JSX.Eleme
             </div>
 
             <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <Link to='/login' title='/login' className="film-nav__link">Details</Link>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-
-              <div className="film-rating">
-                <div className="film-rating__score">{film.rating.toFixed(1)}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">{film.scoresCount} ratings</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                <p>{film.description}</p>
-
-                <p>Gustave prides himself on providing first-className service to the hotel&apos;s guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave&apos;s lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
-
-                <p className="film-card__director"><strong>Director: {film.director}</strong></p>
-
-                <p className="film-card__starring"><strong>Starring: {film.starring} and other</strong></p>
-              </div>
+              <Outlet />
             </div>
           </div>
         </div>
@@ -153,4 +124,4 @@ function MoviePageInListScreen({ films }: MoviePageInListScreenProps): JSX.Eleme
   );
 }
 
-export default MoviePageInListScreen;
+export default MoviePageLayout;

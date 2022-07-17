@@ -14,7 +14,7 @@ function FilmCard({id, previewImage, name, setActiveCard}: FilmCardProps): JSX.E
         <img src={previewImage} alt={name} width="280" height="175" />
       </div>
       <h3 className="small-film-card__title">
-        <Link to={`/films/:${id}`} title={`/films/:${id}`} className="small-film-card__link">{name}</Link>
+        <Link to={`/films/${id}`} title={`/films/${id}`} className="small-film-card__link">{name}</Link>
       </h3>
     </article>
   );

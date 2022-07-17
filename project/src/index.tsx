@@ -20,6 +20,7 @@ root.render(
       genre={PROMO_FILM.GENRE}
       year={PROMO_FILM.YEAR}
       films={FILMS}
+      isLogined
     />
   </React.StrictMode>,
 );

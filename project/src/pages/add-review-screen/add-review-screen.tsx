@@ -9,7 +9,7 @@ type AddReviewScreenProps = {
 
 function AddReviewScreen({ films }: AddReviewScreenProps): JSX.Element {
   const params = useParams();
-  const film = films.find((filmA) => String(filmA.id).includes(params.id ? params.id.slice(1) : '0')) as Film;
+  const film = films.find((filmA) => String(filmA.id) === params.id) as Film;
 
   return (
     <section className="film-card film-card--full">
@@ -26,10 +26,10 @@ function AddReviewScreen({ films }: AddReviewScreenProps): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`/films/:${film.id}`} className="breadcrumbs__link">{film.name}</Link>
+                <Link to={`/films/${film.id}`} className="breadcrumbs__link">{film.name}</Link>
               </li>
               <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link">Add review</a>
+                <Link to='#' className="breadcrumbs__link">Add review</Link>
               </li>
             </ul>
           </nav>
@@ -41,13 +41,13 @@ function AddReviewScreen({ films }: AddReviewScreenProps): JSX.Element {
               </div>
             </li>
             <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
+              <Link to="#" className="user-block__link">Sign out</Link>
             </li>
           </ul>
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+          <img src={film.posterImage} alt={film.name} width="218" height="327" />
         </div>
       </div>
 
