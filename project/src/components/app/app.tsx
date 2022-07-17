@@ -1,20 +1,27 @@
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import MainScreen from '../../pages/main-screen/main-screen';
-import MoviePageInListScreen from '../../pages/movie-page-screen/movie-page-in-list-screen';
+import MoviePageLayout from '../../pages/movie-page-screen/movie-page-layout';
 import MyListScreen from '../../pages/my-list-screen/my-list-screen';
+import PageNotFoundScreen from '../../pages/page-not-found-screen/page-not-found-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import SignInScreen from '../../pages/sign-in-screen/sign-in-screen';
+import { Film } from '../../types/films';
+import Details from '../details/details';
+import Overview from '../overview/overview';
 import PrivateRoute from '../private-route/private-route';
+import Reviews from '../review/reviews';
 
 type AppScreenProps = {
   title: string,
   genre: string,
-  year: number
+  year: number,
+  films: Film[],
+  isLogined: boolean,
 };
 
-function App({title, genre, year}: AppScreenProps): JSX.Element {
+function App({title, genre, year, films, isLogined}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -26,6 +33,8 @@ function App({title, genre, year}: AppScreenProps): JSX.Element {
                 title={title}
                 genre={genre}
                 year={year}
+                films={films}
+                isLogined
               />
             }
         />
@@ -38,37 +47,34 @@ function App({title, genre, year}: AppScreenProps): JSX.Element {
           element=
             {
               <PrivateRoute
-                authorizationStatus={AuthorizationStatus.NoAuth}
+                authorizationStatus={AuthorizationStatus.Auth}
               >
-                <MyListScreen />
+                <MyListScreen films={films} isLoggined={isLogined}/>
+              </PrivateRoute>
+            }
+        />
+        <Route path={AppRoute.Film} element={<MoviePageLayout films={films} isLogined={isLogined}/>}>
+          <Route path=":id" element={<Overview films={films} />} />
+          <Route path=":id/details" element={<Details films={films} />} />
+          <Route path=":id/reviews" element={<Reviews films={films} />} />
+        </Route>
+        <Route path={AppRoute.Player} element={<PlayerScreen films={films}/>}>
+          <Route path=":id" element={<PlayerScreen films={films}/>} />
+        </Route>
+        <Route
+          path={AppRoute.AddReview}
+          element=
+            {
+              <PrivateRoute
+                authorizationStatus={AuthorizationStatus.Auth}
+              >
+                <AddReviewScreen films={films}/>
               </PrivateRoute>
             }
         />
         <Route
-          path={AppRoute.Film}
-          element={<MoviePageInListScreen />}
-        />
-        <Route
-          path={AppRoute.Player}
-          element={<PlayerScreen />}
-        />
-        <Route
-          path={AppRoute.AddReview}
-          element={<AddReviewScreen />}
-        />
-        <Route
           path={AppRoute.NotFound}
-          element=
-            {
-              <>
-                <h1>
-                  404.
-                  <br />
-                  <small>Page not found</small>
-                </h1>
-                <Link to={AppRoute.Root}>Go to main page</Link>
-              </>
-            }
+          element={<PageNotFoundScreen isLogined={isLogined}/>}
         />
       </Routes>
     </BrowserRouter>

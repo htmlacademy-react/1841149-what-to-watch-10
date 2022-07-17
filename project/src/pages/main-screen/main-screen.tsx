@@ -1,19 +1,32 @@
-import AddIcon from '../../components/add-icon/add-icon';
-import FilmCard from '../../components/film-card/film-card';
-import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import FilmsList from '../../components/films-list/films-list';
+import Footer from '../../components/footer/footer';
+import { Film } from '../../types/films';
+import { useNavigate, Link } from 'react-router-dom';
 
 type mainScreenProps = {
   title: string,
   genre: string,
-  year: number
+  year: number,
+  films: Film[],
+  isLogined: boolean,
 };
 
-function MainScreen({title, genre, year}: mainScreenProps): JSX.Element {
+function MainScreen({title, genre, year, films, isLogined}: mainScreenProps): JSX.Element {
+  const navigate = useNavigate();
+
+  const myListButtonClickHandler = () => {
+    const path = '/mylist';
+    navigate(path);
+  };
+
+  const playButtonClickHandler = () => {
+    const path = '/player/:1';
+    navigate(path);
+  };
+
   return (
     <>
-      <AddIcon />
-
       <section className="film-card">
         <div className="film-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
@@ -21,7 +34,7 @@ function MainScreen({title, genre, year}: mainScreenProps): JSX.Element {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <Header />
+        <Header isLogined={isLogined}/>
 
         <div className="film-card__wrap">
           <div className="film-card__info">
@@ -37,18 +50,18 @@ function MainScreen({title, genre, year}: mainScreenProps): JSX.Element {
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <button className="btn btn--play film-card__button" type="button" onClick={() => playButtonClickHandler()}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
+                <button className="btn btn--list film-card__button" type="button" onClick={() => myListButtonClickHandler()} >
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">9</span>
+                  <span className="film-card__count">{films.length}</span>
                 </button>
               </div>
             </div>
@@ -62,59 +75,38 @@ function MainScreen({title, genre, year}: mainScreenProps): JSX.Element {
 
           <ul className="catalog__genres-list">
             <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">All genres</a>
+              <Link to="#" className="catalog__genres-link">All genres</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Comedies</a>
+              <Link to="#" className="catalog__genres-link">Comedies</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Crime</a>
+              <Link to="#" className="catalog__genres-link">Crime</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Documentary</a>
+              <Link to="#" className="catalog__genres-link">Documentary</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Dramas</a>
+              <Link to="#" className="catalog__genres-link">Dramas</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Horror</a>
+              <Link to="#" className="catalog__genres-link">Horror</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Kids & Family</a>
+              <Link to="#" className="catalog__genres-link">Kids & Family</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Romance</a>
+              <Link to="#" className="catalog__genres-link">Romance</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Sci-Fi</a>
+              <Link to="#" className="catalog__genres-link">Sci-Fi</Link>
             </li>
             <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Thrillers</a>
+              <Link to="#" className="catalog__genres-link">Thrillers</Link>
             </li>
           </ul>
 
-          <div className="catalog__films-list">
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-            <FilmCard />
-          </div>
+          <FilmsList films={films}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>

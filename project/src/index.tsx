@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
+import { FILMS } from './mocks/films';
 
 const PROMO_FILM = {
   TITLE: 'Thor: Love and Thunder',
@@ -18,6 +19,8 @@ root.render(
       title={PROMO_FILM.TITLE}
       genre={PROMO_FILM.GENRE}
       year={PROMO_FILM.YEAR}
+      films={FILMS}
+      isLogined
     />
   </React.StrictMode>,
 );
