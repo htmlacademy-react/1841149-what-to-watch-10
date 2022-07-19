@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Film } from '../../types/films';
-import FilmCard from '../film-card/film-card';
+import VideoPlayer from '../video-player/video-player';
 
 type FilmListProps = {
   films: Film[];
@@ -16,7 +16,7 @@ function FilmsList({films}: FilmListProps): JSX.Element {
 
   const filmsList =
       films?.map((film) => (
-        <FilmCard key={film.id} id={film.id} previewImage={film.previewImage} name={film.name} setActiveCard={setActive}/>
+        <VideoPlayer key={film.id} film={film} setActiveCard={setActive}/>
       ));
 
   return (
