@@ -10,12 +10,14 @@ type FilmCardProps = {
 function FilmCard({id, previewImage, name, setActiveCard}: FilmCardProps): JSX.Element {
   return (
     <article className="small-film-card catalog__films-card" onMouseEnter={() => setActiveCard(id)}>
-      <div className="small-film-card__image">
-        <img src={previewImage} alt={name} width="280" height="175" />
-      </div>
-      <h3 className="small-film-card__title">
-        <Link to={`/films/${id}`} title={`/films/${id}`} className="small-film-card__link">{name}</Link>
-      </h3>
+      <Link to={`/films/${id}`} title={`/films/${id}`} className="small-film-card__link">
+        <div className="small-film-card__image">
+          <img src={previewImage} alt={name} width="280" height="175" />
+        </div>
+        <h3 className="small-film-card__title">
+          {name}
+        </h3>
+      </Link>
     </article>
   );
 }
