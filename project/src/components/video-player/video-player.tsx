@@ -5,11 +5,9 @@ import { Film } from '../../types/films';
 
 type VideoPlayerProps = {
   film: Film;
-  setActiveCard: (id: number) => void;
 }
 
-function VideoPlayer({film, setActiveCard}: VideoPlayerProps): JSX.Element {
-  const [isLoading, setIsLoading] = useState(true);
+function VideoPlayer({film}: VideoPlayerProps): JSX.Element {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
@@ -17,8 +15,6 @@ function VideoPlayer({film, setActiveCard}: VideoPlayerProps): JSX.Element {
     if (videoRef.current === null) {
       return;
     }
-
-    videoRef.current.addEventListener('loadeddata', () => setIsLoading(false));
 
     if (isPlaying) {
       videoRef.current.play();
@@ -33,7 +29,6 @@ function VideoPlayer({film, setActiveCard}: VideoPlayerProps): JSX.Element {
   return (
     <article className="small-film-card catalog__films-card"
       onMouseOver={() => {
-        setActiveCard(film.id);
         setIsPlaying(true);
       }}
       onMouseOut={() => {

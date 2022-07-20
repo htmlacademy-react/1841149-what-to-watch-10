@@ -4,12 +4,11 @@ type FilmCardProps = {
   id: number;
   previewImage: string;
   name: string;
-  setActiveCard: (id: number) => void;
 }
 
-function FilmCard({id, previewImage, name, setActiveCard}: FilmCardProps): JSX.Element {
+function FilmCard({id, previewImage, name}: FilmCardProps): JSX.Element {
   return (
-    <article className="small-film-card catalog__films-card" onMouseEnter={() => setActiveCard(id)}>
+    <article className="small-film-card catalog__films-card">
       <Link to={`/films/${id}`} title={`/films/${id}`} className="small-film-card__link">
         <div className="small-film-card__image">
           <img src={previewImage} alt={name} width="280" height="175" />

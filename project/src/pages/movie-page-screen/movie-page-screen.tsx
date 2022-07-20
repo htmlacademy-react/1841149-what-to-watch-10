@@ -1,17 +1,20 @@
-import { Link, useParams, useNavigate, Outlet } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import SimilarFilmsList from '../../components/similar-films-list/similar-films-list';
+import Tabs from '../../components/tabs/tabs';
 import { Film } from '../../types/films';
 
-type MoviePageLayoutProps = {
+type MoviePageScreenProps = {
   films: Film[];
   isLogined: boolean;
 }
 
-function MoviePageLayout({ films, isLogined }: MoviePageLayoutProps): JSX.Element {
+function MoviePageScreen({ films, isLogined }: MoviePageScreenProps): JSX.Element {
   const navigate = useNavigate();
   const params = useParams();
   const film = films.find((filmA) => String(filmA.id) === params.id) as Film;
+  const similarFilms = films.filter((filmA) => (filmA.genre === film.genre) && filmA.id !== film.id);
 
   const onPlayButtonClickHandler = () => {
     const path = `/player/${film.id}`;
@@ -69,59 +72,18 @@ function MoviePageLayout({ films, isLogined }: MoviePageLayoutProps): JSX.Elemen
             </div>
 
             <div className="film-card__desc">
-              <Outlet />
+              <Tabs films={films}/>
             </div>
           </div>
         </div>
       </section>
 
       <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
-
-          <div className="catalog__films-list">
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Bohemian Rhapsody</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Macbeth</a>
-              </h3>
-            </article>
-
-            <article className="small-film-card catalog__films-card">
-              <div className="small-film-card__image">
-                <img src="img/aviator.jpg" alt="Aviator" width="280" height="175" />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">Aviator</a>
-              </h3>
-            </article>
-          </div>
-        </section>
-
+        <SimilarFilmsList similarFilms={similarFilms} />
         <Footer />
       </div>
     </>
   );
 }
 
-export default MoviePageLayout;
+export default MoviePageScreen;

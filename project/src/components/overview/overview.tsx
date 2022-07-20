@@ -1,29 +1,12 @@
-import { useParams, Link } from 'react-router-dom';
 import { Film } from '../../types/films';
 
 type OverviewProps = {
-  films: Film[];
+  film: Film;
 }
 
-function Overview({films}: OverviewProps): JSX.Element {
-  const params = useParams();
-  const film = films.find((filmA) => String(filmA.id) === params.id) as Film;
-
+function Overview({film}: OverviewProps): JSX.Element {
   return (
     <>
-      <nav className="film-nav film-card__nav">
-        <ul className="film-nav__list">
-          <li className="film-nav__item film-nav__item--active">
-            <Link to='#' className="film-nav__link">Overview</Link>
-          </li>
-          <li className="film-nav__item">
-            <Link to={'details'} className="film-nav__link">Details</Link>
-          </li>
-          <li className="film-nav__item">
-            <Link to={'reviews'} className="film-nav__link">Reviews</Link>
-          </li>
-        </ul>
-      </nav>
       <div className="film-rating">
         <div className="film-rating__score">{film.rating.toFixed(1)}</div>
         <p className="film-rating__meta">

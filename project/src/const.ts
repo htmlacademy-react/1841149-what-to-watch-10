@@ -1,7 +1,7 @@
 enum AppRoute {
   Login = '/login',
   MyList = '/mylist',
-  Film = '/films',
+  Film = '/films/:id',
   AddReview = '/films/:id/review',
   Root = '/',
   Player = '/player',
