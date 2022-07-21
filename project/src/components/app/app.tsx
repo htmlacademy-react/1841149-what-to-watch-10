@@ -2,16 +2,13 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import MainScreen from '../../pages/main-screen/main-screen';
-import MoviePageLayout from '../../pages/movie-page-screen/movie-page-layout';
+import MoviePage from '../../pages/movie-page-screen/movie-page-screen';
 import MyListScreen from '../../pages/my-list-screen/my-list-screen';
 import PageNotFoundScreen from '../../pages/page-not-found-screen/page-not-found-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import SignInScreen from '../../pages/sign-in-screen/sign-in-screen';
 import { Film } from '../../types/films';
-import Details from '../details/details';
-import Overview from '../overview/overview';
 import PrivateRoute from '../private-route/private-route';
-import Reviews from '../review/reviews';
 
 type AppScreenProps = {
   title: string,
@@ -53,11 +50,7 @@ function App({title, genre, year, films, isLogined}: AppScreenProps): JSX.Elemen
               </PrivateRoute>
             }
         />
-        <Route path={AppRoute.Film} element={<MoviePageLayout films={films} isLogined={isLogined}/>}>
-          <Route path=":id" element={<Overview films={films} />} />
-          <Route path=":id/details" element={<Details films={films} />} />
-          <Route path=":id/reviews" element={<Reviews films={films} />} />
-        </Route>
+        <Route path={AppRoute.Film} element={<MoviePage films={films} isLogined={isLogined}/>} />
         <Route path={AppRoute.Player} element={<PlayerScreen films={films}/>}>
           <Route path=":id" element={<PlayerScreen films={films}/>} />
         </Route>
