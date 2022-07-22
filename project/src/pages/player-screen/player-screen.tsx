@@ -1,23 +1,20 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { Film } from '../../types/films';
+import { useAppSelector } from '../../hooks';
 
-type PlayerScreenProps = {
-  films: Film[];
-}
-
-function PlayerScreen({ films }: PlayerScreenProps): JSX.Element {
+function PlayerScreen(): JSX.Element {
+  const films = useAppSelector((state) => state.films);
   const navigate = useNavigate();
   const params = useParams();
-  const film = films.find((filmA) => String(filmA.id) === params.id) as Film;
+  const film = films.find((filmA) => String(filmA.id) === params.id);
 
   const onExitButtonClickHandler = () => {
-    const path = `/films/${film.id}`;
+    const path = `/films/${film?.id}`;
     navigate(path);
   };
 
   return (
     <div className="player">
-      <video src={film.previewVideoLink} className="player__video" poster={film.previewImage}></video>
+      <video src={film?.previewVideoLink} className="player__video" poster={film?.previewImage}></video>
 
       <button type="button" className="player__exit" onClick={onExitButtonClickHandler}>Exit</button>
 
