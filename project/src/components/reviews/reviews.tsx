@@ -1,7 +1,7 @@
 import { Film } from '../../types/films';
 
 type ReviewsProps = {
-  film: Film;
+  film: Film | null;
 }
 
 
