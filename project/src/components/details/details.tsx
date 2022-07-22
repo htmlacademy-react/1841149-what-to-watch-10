@@ -1,11 +1,11 @@
 import { Film } from '../../types/films';
 
 type DetailsProps = {
-  film: Film;
+  film: Film | null;
 }
 
 function Details({film}: DetailsProps): JSX.Element {
-  const actorsList = film.starring[0].split(',').map((star) => `${star}`, '');
+  const actorsList = film?.starring[0].split(',').map((star) => `${star}`, '');
 
   const huminazeFilmDuration = (minutes: number) => {
     const MINUTES_IN_HOUR = 60;

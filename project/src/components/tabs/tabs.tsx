@@ -5,7 +5,7 @@ import Overview from '../overview/overview';
 import Reviews from '../reviews/reviews';
 
 type TabsProps = {
-  film: Film;
+  film: Film | null;
 }
 
 function Tabs({film}: TabsProps): JSX.Element {
