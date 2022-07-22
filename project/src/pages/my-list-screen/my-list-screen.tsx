@@ -10,8 +10,7 @@ type MyListScreenProps = {
 
 function MyListScreen({films, isLoggined}: MyListScreenProps): JSX.Element {
   const filmsList =
-    films &&
-    films.map((film) => (
+    films?.map((film) => (
       <FilmCard key={film.id} id={film.id} previewImage={film.previewImage} name={film.name}/>
     ));
 

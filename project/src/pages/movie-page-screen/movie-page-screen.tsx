@@ -72,7 +72,7 @@ function MoviePageScreen({ films, isLogined }: MoviePageScreenProps): JSX.Elemen
             </div>
 
             <div className="film-card__desc">
-              <Tabs films={films}/>
+              <Tabs film={film}/>
             </div>
           </div>
         </div>

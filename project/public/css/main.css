@@ -527,6 +527,8 @@ main {
 
 .catalog__genres-link {
   display: block;
+  border: none;
+  background-color: transparent;
   color: #DFCF77;
   text-decoration: none;
   position: relative;
