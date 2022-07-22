@@ -1,14 +1,14 @@
 import FilmCard from '../../components/film-card/film-card';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import { Film } from '../../types/films';
+import { useAppSelector } from '../../hooks';
 
 type MyListScreenProps = {
-  films: Film[];
   isLoggined: boolean;
 }
 
-function MyListScreen({films, isLoggined}: MyListScreenProps): JSX.Element {
+function MyListScreen({isLoggined}: MyListScreenProps): JSX.Element {
+  const films = useAppSelector((state) => state.films);
   const filmsList =
     films?.map((film) => (
       <FilmCard key={film.id} id={film.id} previewImage={film.previewImage} name={film.name}/>

@@ -4,13 +4,14 @@ import Header from '../../components/header/header';
 import SimilarFilmsList from '../../components/similar-films-list/similar-films-list';
 import Tabs from '../../components/tabs/tabs';
 import { Film } from '../../types/films';
+import { useAppSelector } from '../../hooks';
 
 type MoviePageScreenProps = {
-  films: Film[];
   isLogined: boolean;
 }
 
-function MoviePageScreen({ films, isLogined }: MoviePageScreenProps): JSX.Element {
+function MoviePageScreen({isLogined }: MoviePageScreenProps): JSX.Element {
+  const films = useAppSelector((state) => state.films);
   const navigate = useNavigate();
   const params = useParams();
   const film = films.find((filmA) => String(filmA.id) === params.id) as Film;

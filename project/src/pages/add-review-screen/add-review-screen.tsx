@@ -2,12 +2,10 @@ import { Link, useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import SendingCommentsForm from '../../components/sending-comments-form/sending-comments-form';
 import { Film } from '../../types/films';
+import { useAppSelector } from '../../hooks';
 
-type AddReviewScreenProps = {
-  films: Film[]
-}
-
-function AddReviewScreen({ films }: AddReviewScreenProps): JSX.Element {
+function AddReviewScreen(): JSX.Element {
+  const films = useAppSelector((state) => state.films);
   const params = useParams();
   const film = films.find((filmA) => String(filmA.id) === params.id) as Film;
 

@@ -1,19 +1,19 @@
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
-import { Film } from '../../types/films';
 import { useNavigate } from 'react-router-dom';
 import Catalog from '../../components/catalog/catalog';
+import { useAppSelector } from '../../hooks';
 
 type mainScreenProps = {
   title: string,
   genre: string,
   year: number,
-  films: Film[],
   isLogined: boolean,
 };
 
-function MainScreen({title, genre, year, films, isLogined}: mainScreenProps): JSX.Element {
+function MainScreen({title, genre, year, isLogined}: mainScreenProps): JSX.Element {
   const navigate = useNavigate();
+  const films = useAppSelector((state) => state.films);
 
   const myListButtonClickHandler = () => {
     const path = '/mylist';

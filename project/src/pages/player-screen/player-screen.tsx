@@ -1,11 +1,9 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { Film } from '../../types/films';
+import { useAppSelector } from '../../hooks';
 
-type PlayerScreenProps = {
-  films: Film[];
-}
-
-function PlayerScreen({ films }: PlayerScreenProps): JSX.Element {
+function PlayerScreen(): JSX.Element {
+  const films = useAppSelector((state) => state.films);
   const navigate = useNavigate();
   const params = useParams();
   const film = films.find((filmA) => String(filmA.id) === params.id) as Film;
