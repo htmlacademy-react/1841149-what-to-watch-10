@@ -14,4 +14,21 @@ enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export { AppRoute, AuthorizationStatus };
+const GenreTabs = [
+  'All genres',
+  'Comedie',
+  'Crime',
+  'Documentary',
+  'Drama',
+  'Horror',
+  'Kids & Family',
+  'Romance',
+  'Sci-Fi',
+  'Thriller',
+];
+
+const INITAL_FILMS_GENRE = 'All genres';
+
+const CARDS_PER_STEP = 8;
+
+export { AppRoute, AuthorizationStatus, INITAL_FILMS_GENRE, CARDS_PER_STEP, GenreTabs };

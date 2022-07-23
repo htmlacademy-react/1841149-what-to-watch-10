@@ -3,21 +3,21 @@ import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import SimilarFilmsList from '../../components/similar-films-list/similar-films-list';
 import Tabs from '../../components/tabs/tabs';
-import { Film } from '../../types/films';
+import { useAppSelector } from '../../hooks';
 
 type MoviePageScreenProps = {
-  films: Film[];
   isLogined: boolean;
 }
 
-function MoviePageScreen({ films, isLogined }: MoviePageScreenProps): JSX.Element {
+function MoviePageScreen({isLogined }: MoviePageScreenProps): JSX.Element {
+  const films = useAppSelector((state) => state.films);
   const navigate = useNavigate();
   const params = useParams();
-  const film = films.find((filmA) => String(filmA.id) === params.id) as Film;
-  const similarFilms = films.filter((filmA) => (filmA.genre === film.genre) && filmA.id !== film.id);
+  const film = films.find((filmA) => String(filmA.id) === params.id);
+  const similarFilms = films.filter((filmA) => (filmA.genre === film?.genre) && filmA.id !== film?.id);
 
   const onPlayButtonClickHandler = () => {
-    const path = `/player/${film.id}`;
+    const path = `/player/${film?.id}`;
     navigate(path);
   };
 
@@ -31,7 +31,7 @@ function MoviePageScreen({ films, isLogined }: MoviePageScreenProps): JSX.Elemen
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={film.backgroundImage} alt={film.name} />
+            <img src={film?.backgroundImage} alt={film?.name} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -39,10 +39,10 @@ function MoviePageScreen({ films, isLogined }: MoviePageScreenProps): JSX.Elemen
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{film.name}</h2>
+              <h2 className="film-card__title">{film?.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{film.genre}</span>
-                <span className="film-card__year">{film.released}</span>
+                <span className="film-card__genre">{film?.genre}</span>
+                <span className="film-card__year">{film?.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -59,7 +59,7 @@ function MoviePageScreen({ films, isLogined }: MoviePageScreenProps): JSX.Elemen
                   <span>My list</span>
                   <span className="film-card__count">{films.length}</span>
                 </button>
-                <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
+                <Link to={`/films/${film?.id}/review`} className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -68,11 +68,11 @@ function MoviePageScreen({ films, isLogined }: MoviePageScreenProps): JSX.Elemen
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={film.posterImage} alt={film.name} width="218" height="327" />
+              <img src={film?.posterImage} alt={film?.name} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
-              <Tabs films={films}/>
+              <Tabs film={film || null}/>
             </div>
           </div>
         </div>

@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import App from './components/app/app';
 import { FILMS } from './mocks/films';
+import { store } from './store';
 
 const PROMO_FILM = {
   TITLE: 'Thor: Love and Thunder',
@@ -15,12 +17,14 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App
-      title={PROMO_FILM.TITLE}
-      genre={PROMO_FILM.GENRE}
-      year={PROMO_FILM.YEAR}
-      films={FILMS}
-      isLogined
-    />
+    <Provider store = {store}>
+      <App
+        title={PROMO_FILM.TITLE}
+        genre={PROMO_FILM.GENRE}
+        year={PROMO_FILM.YEAR}
+        films={FILMS}
+        isLogined
+      />
+    </Provider>
   </React.StrictMode>,
 );

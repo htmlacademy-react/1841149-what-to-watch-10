@@ -1,19 +1,15 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { Film } from '../../types/films';
 import Details from '../details/details';
 import Overview from '../overview/overview';
 import Reviews from '../reviews/reviews';
 
 type TabsProps = {
-  films: Film[];
+  film: Film | null;
 }
 
-function Tabs({films}: TabsProps): JSX.Element {
+function Tabs({film}: TabsProps): JSX.Element {
   const [activeTab, setActiveTab] = useState('Overview');
-  const params = useParams();
-  const film = films.find((filmA) => String(filmA.id) === params.id) as Film;
-
   const onTabClickHandler = (e: React.MouseEvent) => {
     if (e.currentTarget.textContent !== null) {
       setActiveTab(e.currentTarget.textContent);

@@ -30,7 +30,6 @@ function App({title, genre, year, films, isLogined}: AppScreenProps): JSX.Elemen
                 title={title}
                 genre={genre}
                 year={year}
-                films={films}
                 isLogined
               />
             }
@@ -46,13 +45,13 @@ function App({title, genre, year, films, isLogined}: AppScreenProps): JSX.Elemen
               <PrivateRoute
                 authorizationStatus={AuthorizationStatus.Auth}
               >
-                <MyListScreen films={films} isLoggined={isLogined}/>
+                <MyListScreen isLoggined={isLogined}/>
               </PrivateRoute>
             }
         />
-        <Route path={AppRoute.Film} element={<MoviePage films={films} isLogined={isLogined}/>} />
-        <Route path={AppRoute.Player} element={<PlayerScreen films={films}/>}>
-          <Route path=":id" element={<PlayerScreen films={films}/>} />
+        <Route path={AppRoute.Film} element={<MoviePage isLogined={isLogined}/>} />
+        <Route path={AppRoute.Player} element={<PlayerScreen />}>
+          <Route path=":id" element={<PlayerScreen />} />
         </Route>
         <Route
           path={AppRoute.AddReview}
@@ -61,7 +60,7 @@ function App({title, genre, year, films, isLogined}: AppScreenProps): JSX.Elemen
               <PrivateRoute
                 authorizationStatus={AuthorizationStatus.Auth}
               >
-                <AddReviewScreen films={films}/>
+                <AddReviewScreen />
               </PrivateRoute>
             }
         />
