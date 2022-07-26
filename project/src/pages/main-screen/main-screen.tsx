@@ -70,7 +70,7 @@ function MainScreen({title, genre, year, isLogined}: mainScreenProps): JSX.Eleme
       </section>
 
       <div className="page-content">
-        <Catalog films={films} />
+        <Catalog />
 
         <Footer />
       </div>

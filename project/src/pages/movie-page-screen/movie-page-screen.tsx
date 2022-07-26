@@ -14,7 +14,7 @@ function MoviePageScreen({isLogined }: MoviePageScreenProps): JSX.Element {
   const navigate = useNavigate();
   const params = useParams();
   const film = films.find((filmA) => String(filmA.id) === params.id);
-  const similarFilms = films.filter((filmA) => (filmA.genre === film?.genre) && filmA.id !== film?.id);
+  const similarFilms = films.filter((filmA) => (filmA.genre === film?.genre) && filmA.id !== film?.id).slice(0, 1);
 
   const onPlayButtonClickHandler = () => {
     const path = `/player/${film?.id}`;
