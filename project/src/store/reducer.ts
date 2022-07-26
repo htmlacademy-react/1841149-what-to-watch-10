@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { showAnotherGenre, showMoreFilms } from './action';
+import { resetFilmsList, showAnotherGenre, showMoreFilms } from './action';
 import { CARDS_PER_STEP, INITAL_FILMS_GENRE } from '../const';
 import { FILMS } from '../mocks/films';
 
@@ -8,6 +8,7 @@ const initialState = {
   films: FILMS,
   renderedFilmCount: 8,
   filmsToShow: [],
+  favouriteFilms: FILMS.filter((film) => film.isFavorite).length,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -18,6 +19,10 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(showMoreFilms, (state, action) => {
       state.renderedFilmCount = action.payload;
+    })
+    .addCase(resetFilmsList, (state, action) => {
+      state.renderedFilmCount = action.payload.filmsToShow;
+      state.genre = action.payload.genre;
     });
 });
 

@@ -11,7 +11,7 @@ type VideoPlayerProps = {
 function VideoPlayer({film, index}: VideoPlayerProps): JSX.Element | null {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const filmsToShowCount = useAppSelector((state) => state.renderedFilmCount);
+  const isVisible = useAppSelector((state) => index < state.renderedFilmCount);
 
   useEffect(() => {
     if (videoRef.current === null) {
@@ -29,7 +29,7 @@ function VideoPlayer({film, index}: VideoPlayerProps): JSX.Element | null {
   }, [isPlaying]);
 
 
-  if (index < filmsToShowCount) {
+  if (isVisible) {
     return (
       <article className="small-film-card catalog__films-card"
         onMouseOver={() => {

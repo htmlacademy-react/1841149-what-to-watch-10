@@ -1,25 +1,20 @@
-import { useAppSelector } from '../../hooks';
-import ShowMoreButton from '../show-more-button/show-more-button';
+import { Film } from '../../types/films';
 import VideoPlayer from '../video-player/video-player';
 
-function FilmsList(): JSX.Element {
-  const films = useAppSelector((state) => state.films);
-  const selectedGenre = useAppSelector((state) => state.genre);
+type FilmListProps = {
+  films: Film[];
+}
 
-  const sortedFilms = films.filter((film) => selectedGenre === 'All genres' ? films : film.genre === selectedGenre);
-
+function FilmsList({films}: FilmListProps): JSX.Element {
   const filmsList =
-      sortedFilms?.map((film, index) => (
+      films.map((film, index) => (
         <VideoPlayer key={film.id} film={film} index={index}/>
       ));
 
   return (
-    <>
-      <div className="catalog__films-list">
-        {filmsList}
-      </div>
-      <ShowMoreButton />
-    </>
+    <div className="catalog__films-list">
+      {filmsList}
+    </div>
   );
 }
 
